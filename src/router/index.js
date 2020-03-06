@@ -6,30 +6,6 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
-/**
- * Note: sub-menu only appear when route children.length >= 1
- * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
- *
- * hidden: true                   if set true, item will not show in the sidebar(default is false)
- * alwaysShow: true               if set true, will always show the root menu
- *                                if not set alwaysShow, when item has more than one children route,
- *                                it will becomes nested mode, otherwise not show the root menu
- * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
- * name:'router-name'             the name is used by <keep-alive> (must set!!!)
- * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
-    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
-    icon: 'svg-name'             the icon show in the sidebar
-    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
-  }
- */
-
-/**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
- */
 export const constantRoutes = [
   {
     path: '/login',
@@ -51,7 +27,7 @@ export const constantRoutes = [
       path: 'home',
       name: 'HomeLayout',
       component: () => import('@/views/Home/index'),
-      meta: { title: '首页', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'home' }
     }]
   },
   // 轮播图管理
@@ -63,7 +39,7 @@ export const constantRoutes = [
       path: 'banner',
       name: 'Banner',
       component: () => import('@/views/Banner/index'),
-      meta: { title: '轮播图管理', icon: 'dashboard' }
+      meta: { title: '轮播图管理', icon: 'banner' }
     }]
   },
   // 每日热点管理
@@ -75,7 +51,7 @@ export const constantRoutes = [
       path: 'advisory',
       name: 'Advisory',
       component: () => import('@/views/Advisory/index'),
-      meta: { title: '每日热点管理', icon: 'dashboard' }
+      meta: { title: '每日热点管理', icon: 'advisory' }
     }]
   },
   // 校研会管理
@@ -87,7 +63,7 @@ export const constantRoutes = [
       path: 'meet',
       name: 'Meet',
       component: () => import('@/views/Meet/index'),
-      meta: { title: '校研会管理', icon: 'dashboard' }
+      meta: { title: '校研会管理', icon: 'meet' }
     }]
   },
   // 院校信息管理
@@ -99,7 +75,7 @@ export const constantRoutes = [
       path: 'college',
       name: 'College',
       component: () => import('@/views/College/index'),
-      meta: { title: '院校信息管理', icon: 'dashboard' }
+      meta: { title: '院校信息管理', icon: 'college' }
     }]
   },
   // 用户管理
@@ -111,7 +87,7 @@ export const constantRoutes = [
       path: 'user',
       name: 'User',
       component: () => import('@/views/User/index'),
-      meta: { title: '用户管理', icon: 'dashboard' }
+      meta: { title: '用户管理', icon: 'user' }
     }]
   },
   // 系统反馈
@@ -123,7 +99,7 @@ export const constantRoutes = [
       path: 'feedback',
       name: 'Feedback',
       component: () => import('@/views/Feedback/index'),
-      meta: { title: '系统反馈', icon: 'dashboard' }
+      meta: { title: '系统反馈', icon: 'feedback' }
     }]
   },
 
