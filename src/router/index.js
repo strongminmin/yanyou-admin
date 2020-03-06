@@ -33,7 +33,7 @@ import Layout from '@/layout'
 export const constantRoutes = [
   {
     path: '/login',
-    component: () => import('@/views/login/index'),
+    component: () => import('@/views/Login/index'),
     hidden: true
   },
 
@@ -50,7 +50,7 @@ export const constantRoutes = [
     children: [{
       path: 'home',
       name: 'HomeLayout',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/Home/index'),
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
@@ -62,7 +62,7 @@ export const constantRoutes = [
     children: [{
       path: 'banner',
       name: 'Banner',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/Banner/index'),
       meta: { title: '轮播图管理', icon: 'dashboard' }
     }]
   },
@@ -74,7 +74,7 @@ export const constantRoutes = [
     children: [{
       path: 'advisory',
       name: 'Advisory',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/Advisory/index'),
       meta: { title: '每日热点管理', icon: 'dashboard' }
     }]
   },
@@ -86,7 +86,7 @@ export const constantRoutes = [
     children: [{
       path: 'meet',
       name: 'Meet',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/Meet/index'),
       meta: { title: '校研会管理', icon: 'dashboard' }
     }]
   },
@@ -98,7 +98,7 @@ export const constantRoutes = [
     children: [{
       path: 'college',
       name: 'College',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/College/index'),
       meta: { title: '院校信息管理', icon: 'dashboard' }
     }]
   },
@@ -110,7 +110,7 @@ export const constantRoutes = [
     children: [{
       path: 'user',
       name: 'User',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/User/index'),
       meta: { title: '用户管理', icon: 'dashboard' }
     }]
   },
@@ -122,7 +122,7 @@ export const constantRoutes = [
     children: [{
       path: 'feedback',
       name: 'Feedback',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/Feedback/index'),
       meta: { title: '系统反馈', icon: 'dashboard' }
     }]
   },
