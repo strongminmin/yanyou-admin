@@ -47,13 +47,21 @@ export const constantRoutes = [
     path: '/advisory',
     component: Layout,
     redirect: '/advisory-layout',
+    meta: { title: '每日热点管理', icon: 'advisory' },
     children: [{
       path: 'advisory',
       name: 'Advisory',
       component: () => import('@/views/Advisory/index'),
-      meta: { title: '每日热点管理', icon: 'advisory' }
+      meta: { title: '热点列表', icon: 'advisory' }
+    },
+    {
+      path: 'release-advisory/:id',
+      name: 'ReleaseAdvisory',
+      component: () => import('@/views/Advisory/edit'),
+      meta: { title: '发布热点', icon: 'advisory' }
     }]
   },
+
   // 校研会管理
   {
     path: '/meet',

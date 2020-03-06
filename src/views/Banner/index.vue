@@ -59,15 +59,18 @@ export default {
     },
     async uploadRequest(file) {
       // 上传操作
+      try {
+        this.toastHandler('success', '上传成功')
+      } catch (err) {
+        this.toastHandler('error', '上传失败')
+      }
     },
-
-    // dialog关闭
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
+    toastHandler(type, content) {
+      if (type === 'success') {
+        this.$message.success(content)
+      } else {
+        this.$message.error(content)
+      }
     }
   }
 }
