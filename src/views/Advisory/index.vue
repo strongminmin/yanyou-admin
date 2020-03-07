@@ -53,7 +53,7 @@ export default {
     // 修改
     updateAdvisory(index, tableData) {
       const id = tableData[index].advisory_id
-      this.$router.push(`/advisory/release-advisory/${id}`)
+      this.$router.push(`/advisory/edit/${id}`)
     }
   }
 }

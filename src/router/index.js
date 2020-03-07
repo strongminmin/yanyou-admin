@@ -55,8 +55,8 @@ export const constantRoutes = [
       meta: { title: '热点列表', icon: 'advisory' }
     },
     {
-      path: 'release-advisory/:id',
-      name: 'ReleaseAdvisory',
+      path: 'edit/:id',
+      name: 'Edit',
       component: () => import('@/views/Advisory/edit'),
       meta: { title: '发布热点', icon: 'advisory' }
     }]
@@ -67,11 +67,18 @@ export const constantRoutes = [
     path: '/meet',
     component: Layout,
     redirect: '/meet-layout',
+    meta: { title: '校研会管理', icon: 'meet' },
     children: [{
       path: 'meet',
       name: 'Meet',
       component: () => import('@/views/Meet/index'),
-      meta: { title: '校研会管理', icon: 'meet' }
+      meta: { title: '会议列表', icon: 'meet' }
+    },
+    {
+      path: 'edit/:id',
+      name: 'Edit',
+      component: () => import('@/views/Meet/edit'),
+      meta: { title: '发布会议', icon: 'meet' }
     }]
   },
   // 院校信息管理
@@ -79,11 +86,28 @@ export const constantRoutes = [
     path: '/college',
     component: Layout,
     redirect: '/college-layout',
+    meta: { title: '院校信息管理', icon: 'college' },
     children: [{
       path: 'college',
       name: 'College',
       component: () => import('@/views/College/index'),
-      meta: { title: '院校信息管理', icon: 'college' }
+      meta: { title: '院校列表', icon: 'college' }
+    }, {
+      path: 'edit/:id',
+      name: 'Edit',
+      component: () => import('@/views/College/edit'),
+      meta: { title: '添加院校', icon: 'college' }
+    }]
+  },
+  {
+    path: '/resources',
+    component: Layout,
+    redirect: '/resources-layout',
+    children: [{
+      path: 'resources',
+      name: 'Resources',
+      component: () => import('@/views/Resources/index'),
+      meta: { title: '资源管理', icon: 'college' }
     }]
   },
   // 用户管理

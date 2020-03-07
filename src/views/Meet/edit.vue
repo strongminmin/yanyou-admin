@@ -1,45 +1,8 @@
 <template>
   <div v-loading="loading" class="edit">
     <div class="edit-wrapper">
-      热点标签：
-      <el-input v-model="tag" class="edit-wrapper-input" />
-    </div>
-    <div class="edit-wrapper">
-      热点来源：
-      <el-input v-model="origin" class="edit-wrapper-input" />
-    </div>
-    <div class="edit-wrapper">
-      热点题目：
+      会议题目：
       <el-input v-model="title" class="edit-wrapper-input" />
-    </div>
-    <div class="edit-wrapper">
-      <div class="upload-container">
-        <el-upload
-          v-if="!bannerUrl"
-          :data="dataObj"
-          :multiple="false"
-          :show-file-list="false"
-          :on-success="handleBannerSuccess"
-          class="image-uploader"
-          drag
-          action="https://httpbin.org/post"
-        >
-          <i class="el-icon-upload" />
-          <div class="el-upload__text">
-            内容展示图：将文件拖到此处，或
-            <em>点击上传</em>
-          </div>
-        </el-upload>
-        <div
-          v-if="bannerUrl"
-          class="image-preview"
-          :style="{backgroundImage: 'url(' + bannerUrl + ')'}"
-        >
-          <div class="image-preview-action" @click="removeBanner">
-            <i class="el-icon-delete" />
-          </div>
-        </div>
-      </div>
     </div>
     <div class="edit-tinymce-wrapper">
       <div class="edit-tinymce">
@@ -60,25 +23,16 @@ export default {
   },
   data() {
     return {
-      tag: '',
       title: '',
-      origin: '',
-      content: '',
-      bannerUrl: '',
-      dataObj: {
-        token: '',
-        key: ''
-      }
+      content: ''
+
     }
   },
   methods: {
     async createAdvisory() {
-      const advisoryInfo = {
-        advisory_type: this.tag,
-        advisory_title: this.title,
-        advisory_origin: this.origin,
-        advisory_banner: this.bannerUrl,
-        advisory_content: this.content
+      const meetInfo = {
+        meet_title: this.title,
+        meet_content: this.content
       }
       try {
         // loading
@@ -88,7 +42,7 @@ export default {
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.2)'
         })
-        console.log(advisoryInfo)
+        console.log(meetInfo)
         setTimeout(() => {
           loading.close()
           this.$message.success('发布成功')
@@ -96,13 +50,6 @@ export default {
       } catch (err) {
         this.$message.error('发布失败')
       }
-    },
-    handleBannerSuccess(data) {
-      const base64 = data.files.file
-      this.bannerUrl = base64
-    },
-    removeBanner() {
-      this.bannerUrl = ''
     }
   }
 }
