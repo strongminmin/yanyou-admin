@@ -66,7 +66,7 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: '123456'
       },
       loginRules: {
         username: [
@@ -79,7 +79,7 @@ export default {
       loading: false,
       passwordType: 'password',
       // 登录完成后跳转的路径
-      redirect: '/'
+      redirect: '/home'
     }
   },
   watch: {
@@ -107,10 +107,9 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          // TODO：发送请求管理员账号密码是否正确
           this.$store
             .dispatch('user/login', this.loginForm)
-            .then(() => {
+            .then((data) => {
               this.$router.push({ path: this.redirect || '/' })
               this.loading = false
             })

@@ -5,9 +5,9 @@
     <breadcrumb class="breadcrumb-container" />
     <!-- 管理员登录状态 -->
     <div class="right-menu">
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+      <el-dropdown class="image-container" trigger="click">
+        <div class="image-wrapper">
+          <img :src="image+'?imageView2/1/w/80/h/80'" class="user-image">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -38,7 +38,7 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'image'
     ])
   },
   methods: {
@@ -105,14 +105,14 @@ export default {
       }
     }
 
-    .avatar-container {
+    .image-container {
       margin-right: 30px;
 
-      .avatar-wrapper {
+      .image-wrapper {
         margin-top: 5px;
         position: relative;
 
-        .user-avatar {
+        .user-image {
           cursor: pointer;
           width: 40px;
           height: 40px;

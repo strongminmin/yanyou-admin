@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -6,7 +6,7 @@ const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    imageUrl: ''
   }
 }
 
@@ -16,73 +16,53 @@ const mutations = {
   RESET_STATE: (state) => {
     Object.assign(state, getDefaultState())
   },
-  SET_TOKEN: (state, token) => {
-    state.token = token
-  },
   SET_NAME: (state, name) => {
     state.name = name
   },
-  SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
+  SET_IMAGE: (state, imageurl) => {
+    state.imageUrl = imageurl
+  },
+  SET_PASSWORD: (state, password) => {
+    state.password = password
   }
 }
 
 const actions = {
   // 用户登录
+  resetUserInfo({ commit }) {
+    return new Promise((resolve, reject) => {
+      try {
+        const userInfo = getToken().split('*')
+        const name = userInfo[0]
+        const image = userInfo[1]
+        commit('SET_NAME', name)
+        commit('SET_IMAGE', image)
+        resolve()
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
   login({ commit }, userInfo) {
     // 获取到用户名和密码
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      login({ 'user_name': username.trim(), 'user_password': password, platform: 'pc' }).then(response => {
         const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
-
-  // get user info
-  getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
-
-        if (!data) {
-          reject('Verification failed, please Login again.')
-        }
-
-        const { name, avatar } = data
-
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        console.log(data)
+        commit('SET_NAME', data.data.user_name)
+        commit('SET_IMAGE', data.data.user_image)
+        setToken(`${data.data.user_name}*${data.data.user_image}`)
         resolve(data)
       }).catch(error => {
         reject(error)
       })
     })
   },
-
-  // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
-        commit('RESET_STATE')
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
-
-  // remove token
-  resetToken({ commit }) {
-    return new Promise(resolve => {
-      removeToken() // must remove  token  first
+      removeToken()
+      resetRouter()
       commit('RESET_STATE')
       resolve()
     })
