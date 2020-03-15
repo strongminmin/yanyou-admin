@@ -1,17 +1,17 @@
 import request from '@/utils/request'
 
-export function login(data) {
+export function getUserList(data) {
   return request({
-    url: '/api/yanyou/user/login',
-    method: 'post',
-    data
+    url: '/api/user/user-list',
+    method: 'get',
+    params: data
   })
 }
 
-export function getInfo(token) {
+export function disableUser(data) {
   return request({
-    url: '/vue-admin-template/user/info',
+    url: '/api/user/disable-user',
     method: 'get',
-    params: { token }
+    params: data
   })
 }
