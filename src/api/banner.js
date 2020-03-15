@@ -10,9 +10,9 @@ export function uploadBanner(data) {
 
 export function deleteBanner(data) {
   return request({
-    url: '/api/yanyou/banner/upload-banner',
+    url: '/api/yanyou/banner/delete-banner',
     method: 'get',
-    params: { data }
+    params: data
   })
 }
 export function getBannerList() {

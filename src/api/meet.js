@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function releaseMeet(data) {
   return request({
-    url: '/api/meet/release-meet',
+    url: '/api/yanyou/meet/release-meet',
     method: 'post',
     data
   })
@@ -10,7 +10,7 @@ export function releaseMeet(data) {
 
 export function updateMeet(data) {
   return request({
-    url: '/api/meet/update-meet',
+    url: '/api/yanyou/meet/update-meet',
     method: 'post',
     data
   })
@@ -18,7 +18,7 @@ export function updateMeet(data) {
 
 export function getMeetList(data) {
   return request({
-    url: '/api/meet/meet-list',
+    url: '/api/yanyou/meet/meet-list',
     method: 'get',
     params: data
   })
@@ -26,7 +26,7 @@ export function getMeetList(data) {
 
 export function deleteMeet(data) {
   return request({
-    url: '/api/meet/delete-meet',
+    url: '/api/yanyou/meet/delete-meet',
     method: 'get',
     params: data
   })

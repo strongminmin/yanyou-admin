@@ -9,7 +9,7 @@
           width="30%"
           :before-close="handleClose"
         >
-          <upload @upload="uploadCallback" />
+          <upload ref="upload" @upload="uploadCallback" />
           <span slot="footer" class="dialog-footer">
             <el-button type="primary" @click="uploaRequest">上传</el-button>
           </span>
@@ -17,7 +17,7 @@
       </el-button>
     </div>
     <div class="banner-table">
-      <banner-table :table-data="tableData" />
+      <banner-table :table-data="tableData" @delete="deleteSuccessCallback" />
     </div>
   </div>
 </template>
@@ -36,24 +36,7 @@ export default {
     return {
       dialogVisible: false,
       bannerFile: '',
-      tableData: [
-        {
-          id: 1,
-          url: 'xxxxx'
-        },
-        {
-          id: 2,
-          url: 'xxxxx'
-        },
-        {
-          id: 3,
-          url: 'xxxxx'
-        },
-        {
-          id: 4,
-          url: 'xxxxx'
-        }
-      ]
+      tableData: []
     }
   },
   async created() {
@@ -68,6 +51,9 @@ export default {
     },
     uploadCallback(file) {
       this.bannerFile = file
+    },
+    async deleteSuccessCallback() {
+      await this.getBannerList()
     },
     async getBannerList() {
       try {
@@ -95,6 +81,8 @@ export default {
           throw new Error()
         } else {
           this.$message.success('上传成功')
+          this.bannerFile = ''
+          this.$refs['upload'].clean()
           await this.getBannerList()
         }
         loading.close()

@@ -10,7 +10,7 @@ export function releaseAdvisory(data) {
 
 export function updateAdvisory(data) {
   return request({
-    url: '/api/advisory/update-advisory',
+    url: '/api/yanyou/advisory/update-advisory',
     method: 'post',
     data
   })
@@ -18,7 +18,7 @@ export function updateAdvisory(data) {
 
 export function getAdvisoryList(data) {
   return request({
-    url: '/api/advisory/advisory-list',
+    url: '/api/yanyou/advisory/advisory-list',
     method: 'get',
     params: data
   })
@@ -26,7 +26,7 @@ export function getAdvisoryList(data) {
 
 export function deleteAdvisory(data) {
   return request({
-    url: '/api/advisory/delete-advisory',
+    url: '/api/yanyou/advisory/delete-advisory',
     method: 'get',
     params: data
   })

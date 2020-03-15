@@ -1,4 +1,4 @@
-import { login } from '@/api/user'
+import { login } from '@/api/admin'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -13,7 +13,7 @@ const getDefaultState = () => {
 const state = getDefaultState()
 
 const mutations = {
-  RESET_STATE: (state) => {
+  RESET_STATE: state => {
     Object.assign(state, getDefaultState())
   },
   SET_NAME: (state, name) => {
@@ -47,16 +47,22 @@ const actions = {
     // 获取到用户名和密码
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ 'user_name': username.trim(), 'user_password': password, platform: 'pc' }).then(response => {
-        const { data } = response
-        console.log(data)
-        commit('SET_NAME', data.data.user_name)
-        commit('SET_IMAGE', data.data.user_image)
-        setToken(`${data.data.user_name}*${data.data.user_image}`)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
+      login({
+        user_name: username.trim(),
+        user_password: password,
+        platform: 'pc'
       })
+        .then(response => {
+          const { data } = response
+          console.log(data)
+          commit('SET_NAME', data.data.user_name)
+          commit('SET_IMAGE', data.data.user_image)
+          setToken(`${data.data.user_name}*${data.data.user_image}`)
+          resolve(data)
+        })
+        .catch(error => {
+          reject(error)
+        })
     })
   },
   logout({ commit, state }) {
@@ -75,4 +81,3 @@ export default {
   mutations,
   actions
 }
-

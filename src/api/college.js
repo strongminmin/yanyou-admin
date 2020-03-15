@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getCollegeList(data) {
   return request({
-    url: '/api/college/college-list',
+    url: '/api/yanyou/college/college-list',
     method: 'get',
     params: data
   })
@@ -10,14 +10,14 @@ export function getCollegeList(data) {
 
 export function releaseCollege(data) {
   return request({
-    url: '/api/college/release-college',
+    url: '/api/yanyou/college/release-college',
     method: 'post',
     data
   })
 }
 export function updateCollege(data) {
   return request({
-    url: '/api/college/update-college',
+    url: '/api/yanyou/college/update-college',
     method: 'post',
     data
   })
@@ -25,7 +25,7 @@ export function updateCollege(data) {
 
 export function deleteCollege(data) {
   return request({
-    url: '/api/college/delete-college',
+    url: '/api/yanyou/college/delete-college',
     method: 'post',
     params: data
   })

@@ -28,6 +28,10 @@ export default {
     }
   },
   methods: {
+    clean() {
+      this.imageUrl = ''
+      this.file = ''
+    },
     handleBannerSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
       this.file = res.files.file
