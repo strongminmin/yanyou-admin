@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="loading" class="edit">
+  <div class="edit">
     <div class="edit-wrapper">
       会议题目：
       <el-input v-model="title" class="edit-wrapper-input" />
@@ -10,46 +10,128 @@
       </div>
     </div>
     <div class="edit-release-wrapper">
-      <el-button type="primary" @click="createAdvisory">发布</el-button>
+      <el-button type="primary" @click="meetHandler">{{ btnTxt }}</el-button>
     </div>
   </div>
 </template>
 
 <script>
 import Tinymce from '@/components/Tinymce'
+import { getMeetDetails, updateMeet, releaseMeet } from '@/api/meet'
 export default {
   components: {
     Tinymce
   },
   data() {
     return {
+      btnTxt: '发布',
+      id: 0,
       title: '',
       content: ''
-
+    }
+  },
+  async created() {
+    const { id } = this.$route.params
+    if (!Number.isNaN(+id)) {
+      this.id = id
+      await this.fetchRequest(id)
+      this.btnTxt = '更新'
     }
   },
   methods: {
-    async createAdvisory() {
+    async fetchRequest(id) {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.2)'
+      })
+      try {
+        const { data } = await getMeetDetails({
+          meet_id: id
+        })
+        this.title = data.data.meet_title
+        this.content = data.data.meet_content
+        loading.close()
+      } catch (err) {
+        loading.close()
+        this.$message.error('获取详情失败')
+      }
+    },
+    meetHandler() {
+      if (this.id === 0) {
+        this.relsaseMeet()
+      } else {
+        this.upldaeMeet()
+      }
+    },
+    async upldaeMeet() {
+      const meetInfo = {
+        meet_id: this.id,
+        meet_title: this.title,
+        meet_content: this.content
+      }
+      const result = this.propsCheck(meetInfo)
+      if (!result) {
+        this.$message.error('会议信息必须填写完整')
+        return
+      }
+      const loading = this.$loading({
+        lock: true,
+        text: '更新中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.2)'
+      })
+      try {
+        const { data } = await updateMeet(meetInfo)
+        if (data.noerr === 1) {
+          throw new Error()
+        }
+        loading.close()
+        this.$router.push(`/meet/meet`)
+        this.$message.success('更新成功')
+      } catch (err) {
+        loading.close()
+        this.$message.error('更新失败')
+      }
+    },
+    async relsaseMeet() {
       const meetInfo = {
         meet_title: this.title,
         meet_content: this.content
       }
+      const result = this.propsCheck(meetInfo)
+      if (!result) {
+        this.$message.error('会议信息必须填写完整')
+        return
+      }
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.2)'
+      })
       try {
-        // loading
-        const loading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.2)'
-        })
-        console.log(meetInfo)
-        setTimeout(() => {
-          loading.close()
-          this.$message.success('发布成功')
-        }, 2000)
+        const { data } = await releaseMeet(meetInfo)
+        if (data.noerr === 1) {
+          throw new Error()
+        }
+        loading.close()
+        this.$message.success('发布成功')
+        this.$router.push(`/meet/meet`)
       } catch (err) {
+        loading.close()
         this.$message.error('发布失败')
       }
+    },
+    propsCheck(info) {
+      let result = true
+      Object.keys(info).forEach(key => {
+        if (!info[key]) {
+          result = false
+        }
+      })
+      return result
     }
   }
 }

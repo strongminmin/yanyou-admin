@@ -9,7 +9,7 @@
       <el-input v-model="origin" class="edit-wrapper-input" />
     </div>
     <div class="edit-wrapper">
-      热点题目：
+      热点标题：
       <el-input v-model="title" class="edit-wrapper-input" />
     </div>
     <div class="edit-wrapper">

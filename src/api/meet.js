@@ -31,3 +31,11 @@ export function deleteMeet(data) {
     params: data
   })
 }
+
+export function getMeetDetails(data) {
+  return request({
+    url: '/api/yanyou/meet/meet-details',
+    method: 'get',
+    params: data
+  })
+}
