@@ -31,3 +31,11 @@ export function deleteAdvisory(data) {
     params: data
   })
 }
+
+export function getAdvisoryDetails(data) {
+  return request({
+    url: '/api/yanyou/advisory/advisory-details',
+    method: 'get',
+    params: data
+  })
+}

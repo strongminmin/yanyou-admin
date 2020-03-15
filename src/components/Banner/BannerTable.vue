@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-table :data="tableData" style="width: 100%" stripe="stripe" border="border">
-      <el-table-column prop="banner_id" label="编号" width="120" align="center" />
+      <el-table-column type="index" label="编号" width="120" align="center" />
       <el-table-column prop="banner_url" label="图片地址" align="center" />
       <el-table-column fixed="right" label="操作" width="120" align="center">
         <template slot-scope="scope">
@@ -16,7 +16,7 @@
     <el-dialog title="删除图片" :visible.sync="dialogVisible" width="30%">
       <span>是否删除</span>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="colseDialog">取 消</el-button>
+        <el-button @click="closeDialog">取 消</el-button>
         <el-button type="primary" @click="deleteCallback">确 定</el-button>
       </span>
     </el-dialog>
@@ -45,12 +45,12 @@ export default {
     openDialog() {
       this.dialogVisible = true
     },
-    colseDialog() {
+    closeDialog() {
       this.dialogVisible = false
     },
     async deleteCallback() {
       await this.deleteRequest()
-      this.colseDialog()
+      this.closeDialog()
     },
     deleteRow(index, tableData) {
       this.currentIdx = index

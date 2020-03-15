@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="loading" class="edit">
+  <div class="edit">
     <div class="edit-wrapper">
       热点标签：
       <el-input v-model="tag" class="edit-wrapper-input" />
@@ -47,19 +47,26 @@
       </div>
     </div>
     <div class="edit-release-wrapper">
-      <el-button type="primary" @click="createAdvisory">发布</el-button>
+      <el-button type="primary" @click="advisoryHandler">{{ btnTxt }}</el-button>
     </div>
   </div>
 </template>
 
 <script>
 import Tinymce from '@/components/Tinymce'
+import {
+  getAdvisoryDetails,
+  updateAdvisory,
+  releaseAdvisory
+} from '@/api/advisory'
 export default {
   components: {
     Tinymce
   },
   data() {
     return {
+      btnTxt: '发布',
+      id: 0,
       tag: '',
       title: '',
       origin: '',
@@ -71,29 +78,106 @@ export default {
       }
     }
   },
+  async created() {
+    const { id } = this.$route.params
+    if (!Number.isNaN(+id)) {
+      this.id = id
+      await this.fetchRequest(id)
+      this.btnTxt = '更新'
+    }
+  },
   methods: {
-    async createAdvisory() {
+    async fetchRequest(id) {
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.2)'
+      })
+      try {
+        const { data } = await getAdvisoryDetails({
+          advisory_id: id
+        })
+        this.tag = data.data.advisory_tag
+        this.origin = data.data.advisory_source
+        this.title = data.data.advisory_title
+        this.content = data.data.advisory_content
+        this.bannerUrl = data.data.advisory_banner
+        loading.close()
+      } catch (err) {
+        loading.close()
+        this.$message.error('获取详情失败')
+      }
+    },
+    advisoryHandler() {
+      if (this.id === 0) {
+        this.relsaseAdvisory()
+      } else {
+        this.upldaeAdvisory()
+      }
+    },
+    async upldaeAdvisory() {
       const advisoryInfo = {
-        advisory_type: this.tag,
+        advisory_id: this.id,
+        advisory_tag: this.tag,
         advisory_title: this.title,
-        advisory_origin: this.origin,
+        advisory_source: this.origin,
         advisory_banner: this.bannerUrl,
         advisory_content: this.content
       }
+      const result = this.propsCheck(advisoryInfo)
+      if (!result) {
+        this.$message.error('热点信息必须填写完整')
+        return
+      }
+      const loading = this.$loading({
+        lock: true,
+        text: '更新中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.2)'
+      })
       try {
-        // loading
-        const loading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.2)'
-        })
-        console.log(advisoryInfo)
-        setTimeout(() => {
-          loading.close()
-          this.$message.success('发布成功')
-        }, 2000)
+        const { data } = await updateAdvisory(advisoryInfo)
+        if (data.noerr === 1) {
+          throw new Error()
+        }
+        loading.close()
+        this.$router.push(`/advisory/advisory`)
+        this.$message.success('更新成功')
       } catch (err) {
+        loading.close()
+        this.$message.error('更新失败')
+      }
+    },
+    async relsaseAdvisory() {
+      const advisoryInfo = {
+        advisory_tag: this.tag,
+        advisory_title: this.title,
+        advisory_source: this.origin,
+        advisory_banner: this.bannerUrl,
+        advisory_content: this.content
+      }
+      const result = this.propsCheck(advisoryInfo)
+      if (!result) {
+        this.$message.error('热点信息必须填写完整')
+        return
+      }
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.2)'
+      })
+      try {
+        const { data } = await releaseAdvisory(advisoryInfo)
+        if (data.noerr === 1) {
+          throw new Error()
+        }
+        loading.close()
+        this.$message.success('发布成功')
+        this.$router.push(`/advisory/advisory`)
+      } catch (err) {
+        loading.close()
         this.$message.error('发布失败')
       }
     },
@@ -103,6 +187,15 @@ export default {
     },
     removeBanner() {
       this.bannerUrl = ''
+    },
+    propsCheck(info) {
+      let result = true
+      Object.keys(info).forEach(key => {
+        if (!info[key]) {
+          result = false
+        }
+      })
+      return result
     }
   }
 }
