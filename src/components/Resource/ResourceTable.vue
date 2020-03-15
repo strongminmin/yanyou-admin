@@ -2,9 +2,18 @@
   <div>
     <el-table :data="tableData" style="width: 100%" stripe="stripe" border="border">
       <el-table-column type="index" label="编号" width="120" align="center" />
-      <el-table-column prop="banner_url" label="图片地址" align="center" />
+      <el-table-column prop="resource_type" label="科目" align="center" />
+      <el-table-column prop="resource_title" label="标题" align="center" />
+      <el-table-column prop="resource_url" label="链接" align="center" width="500" />
+      <el-table-column prop="resource_ident" label="密钥" align="center" />
+
       <el-table-column fixed="right" label="操作" width="120" align="center">
         <template slot-scope="scope">
+          <el-button
+            @click.native.prevent="uploadRow(scope.$index, tableData)"
+            type="text"
+            size="small"
+          >编辑</el-button>
           <el-button
             @click.native.prevent="deleteRow(scope.$index, tableData)"
             type="text"
@@ -13,7 +22,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="删除图片" :visible.sync="dialogVisible" width="30%">
+    <el-dialog title="删除资源" :visible.sync="dialogVisible" width="30%">
       <span>是否删除</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="closeDialog">取 消</el-button>
@@ -25,7 +34,8 @@
 
 <script>
 const DELETE_EVENT = 'delete'
-import { deleteBanner } from '@/api/banner'
+const UPLOAD_EVENT = 'upload'
+import { deleteResource } from '@/api/resource'
 export default {
   props: {
     tableData: {
@@ -65,8 +75,8 @@ export default {
       })
 
       try {
-        const { data } = await deleteBanner({
-          banner_id: this.tableData[this.currentIdx].banner_id
+        const { data } = await deleteResource({
+          resource_id: this.tableData[this.currentIdx].resource_id
         })
         console.log(data)
         if (data.noerr === 1) {
@@ -79,6 +89,9 @@ export default {
         loading.close()
         this.$message.error('删除失败')
       }
+    },
+    uploadRow(index) {
+      this.$emit(UPLOAD_EVENT, index)
     }
   }
 }

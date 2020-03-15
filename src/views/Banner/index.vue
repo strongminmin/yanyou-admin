@@ -11,7 +11,7 @@
         >
           <upload ref="upload" @upload="uploadCallback" />
           <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="uploaRequest">上传</el-button>
+            <el-button type="primary" @click="uploadRequest">上传</el-button>
           </span>
         </el-dialog>
       </el-button>
@@ -56,17 +56,25 @@ export default {
       await this.getBannerList()
     },
     async getBannerList() {
+      const loading = this.$loading({
+        lock: true,
+        text: '加载中...',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.2)'
+      })
       try {
         const { data } = await getBannerList()
         if (data.noerr === 1) {
           throw new Error()
         }
+        loading.close()
         this.tableData = data.data
       } catch (err) {
+        loading.close()
         this.$message.error('网络请求失败')
       }
     },
-    async uploaRequest() {
+    async uploadRequest() {
       const loading = this.$loading({
         lock: true,
         text: '上传中...',
@@ -122,42 +130,6 @@ export default {
     filter: alpha(opacity=0);
     opacity: 0;
     width: 30px;
-  }
-  .image-uploader {
-    width: 300px;
-    height: 150px;
-    margin-left: 250px;
-  }
-  .image-preview {
-    width: 400px;
-    height: 200px;
-    margin-left: 200px;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 12px;
-    position: relative;
-  }
-  .image-preview-action {
-    width: 50px;
-    height: 50px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.16);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16);
-    cursor: pointer;
-  }
-  .el-icon-delete {
-    color: rgba(255, 255, 255, 1);
-    font-size: 22px;
   }
 }
 </style>
