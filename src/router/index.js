@@ -122,16 +122,16 @@ export const constantRoutes = [
       meta: { title: '用户管理', icon: 'user' }
     }]
   },
-  // 系统反馈
+  // 心情管理
   {
-    path: '/feedback',
+    path: '/talk',
     component: Layout,
-    redirect: '/feedback-layout',
+    redirect: '/talk-layout',
     children: [{
-      path: 'feedback',
-      name: 'Feedback',
-      component: () => import('@/views/Feedback/index'),
-      meta: { title: '系统反馈', icon: 'feedback' }
+      path: 'talk',
+      name: 'talk',
+      component: () => import('@/views/Talk/index'),
+      meta: { title: '心情管理', icon: 'feedback' }
     }]
   },
 
