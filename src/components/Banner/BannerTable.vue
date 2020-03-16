@@ -6,6 +6,11 @@
       <el-table-column fixed="right" label="操作" width="120" align="center">
         <template slot-scope="scope">
           <el-button
+            @click.native.prevent="preview(scope.$index, tableData)"
+            type="text"
+            size="small"
+          >预览</el-button>
+          <el-button
             @click.native.prevent="deleteRow(scope.$index, tableData)"
             type="text"
             size="small"
@@ -18,6 +23,12 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="closeDialog">取 消</el-button>
         <el-button type="primary" @click="deleteCallback">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog title="预览" :visible.sync="dialogPreview" width="30%">
+      <img  class="preview-image" :src="currentUrl" alt="">
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="closePreviewDialog">取 消</el-button>
       </span>
     </el-dialog>
   </div>
@@ -35,13 +46,26 @@ export default {
   },
   data() {
     return {
+      currentUrl: '',
       currentIdx: '',
+      dialogPreview: false,
       dialogVisible: false,
       stripe: true,
       border: true
     }
   },
   methods: {
+    openPreviewDialog() {
+      this.dialogPreview = true
+    },
+    closePreviewDialog() {
+      this.dialogPreview = false
+    },
+    preview(index, tableDtata) {
+      const url = tableDtata[index].banner_url
+      this.currentUrl = url
+      this.openPreviewDialog()
+    },
     openDialog() {
       this.dialogVisible = true
     },
@@ -83,4 +107,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.preview-image {
+  width: 100%;
+}
+</style>
 

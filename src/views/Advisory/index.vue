@@ -12,14 +12,14 @@
         <el-table-column fixed="right" label="操作" width="120" align="center">
           <template slot-scope="scope">
             <el-button
-              @click.native.prevent="updateAdvisory(scope.$index, tableData)"
               type="text"
               size="small"
+              @click.native.prevent="updateAdvisory(scope.$index, tableData)"
             >修改</el-button>
             <el-button
-              @click.native.prevent="deleteRow(scope.$index, tableData)"
               type="text"
               size="small"
+              @click.native.prevent="deleteRow(scope.$index, tableData)"
             >删除</el-button>
           </template>
         </el-table-column>
@@ -31,12 +31,12 @@
         <el-button
           type="primary"
           icon="el-icon-arrow-left"
-          @click="prevPage"
           :disabled="page === 1"
+          @click="prevPage"
         >上一页</el-button>
-        <el-button type="primary" @click="nextPage" :disabled="tableData.length < count">
+        <el-button type="primary" :disabled="tableData.length < count" @click="nextPage">
           下一页
-          <i class="el-icon-arrow-right el-icon--right"></i>
+          <i class="el-icon-arrow-right el-icon--right" />
         </el-button>
       </el-button-group>
     </div>
