@@ -1,8 +1,8 @@
 import request from '@/utils/request'
-
+import config from './config'
 export function uploadBanner(data) {
   return request({
-    url: '/api/yanyou/banner/upload-banner',
+    url: `${config.BASE_URL}/banner/upload-banner`,
     method: 'post',
     data
   })
@@ -10,14 +10,14 @@ export function uploadBanner(data) {
 
 export function deleteBanner(data) {
   return request({
-    url: '/api/yanyou/banner/delete-banner',
+    url: `${config.BASE_URL}/banner/delete-banner`,
     method: 'get',
     params: data
   })
 }
 export function getBannerList() {
   return request({
-    'url': '/api/yanyou/banner/banner-list',
+    url: `${config.BASE_URL}/banner/banner-list`,
     method: 'get'
   })
 }

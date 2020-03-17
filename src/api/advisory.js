@@ -1,8 +1,8 @@
 import request from '@/utils/request'
-
+import config from './config'
 export function releaseAdvisory(data) {
   return request({
-    url: '/api/yanyou/advisory/release-advisory',
+    url: `${config.BASE_URL}/advisory/release-advisory`,
     method: 'post',
     data
   })
@@ -10,7 +10,7 @@ export function releaseAdvisory(data) {
 
 export function updateAdvisory(data) {
   return request({
-    url: '/api/yanyou/advisory/update-advisory',
+    url: `${config.BASE_URL}/advisory/update-advisory`,
     method: 'post',
     data
   })
@@ -18,7 +18,7 @@ export function updateAdvisory(data) {
 
 export function getAdvisoryList(data) {
   return request({
-    url: '/api/yanyou/advisory/advisory-list',
+    url: `${config.BASE_URL}/advisory/advisory-list`,
     method: 'get',
     params: data
   })
@@ -26,7 +26,7 @@ export function getAdvisoryList(data) {
 
 export function deleteAdvisory(data) {
   return request({
-    url: '/api/yanyou/advisory/delete-advisory',
+    url: `${config.BASE_URL}/advisory/delete-advisory`,
     method: 'get',
     params: data
   })
@@ -34,7 +34,7 @@ export function deleteAdvisory(data) {
 
 export function getAdvisoryDetails(data) {
   return request({
-    url: '/api/yanyou/advisory/advisory-details',
+    url: `${config.BASE_URL}/advisory/advisory-details`,
     method: 'get',
     params: data
   })

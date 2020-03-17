@@ -1,17 +1,9 @@
 import request from '@/utils/request'
-
+import config from './config'
 export function login(data) {
   return request({
-    url: '/api/yanyou/user/login',
+    url: `${config.BASE_URL}/user/login`,
     method: 'post',
     data
-  })
-}
-
-export function getInfo(token) {
-  return request({
-    url: '/vue-admin-template/user/info',
-    method: 'get',
-    params: { token }
   })
 }
