@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'vue Admin Template' // page title
+const name = defaultSettings.title || '研优后台管理' // page title
 
 const port = process.env.port || process.env.npm_config_port || 8080 // dev port
 
