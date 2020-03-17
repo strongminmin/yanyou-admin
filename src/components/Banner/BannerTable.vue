@@ -6,14 +6,14 @@
       <el-table-column fixed="right" label="操作" width="120" align="center">
         <template slot-scope="scope">
           <el-button
-            @click.native.prevent="preview(scope.$index, tableData)"
             type="text"
             size="small"
+            @click.native.prevent="preview(scope.$index, tableData)"
           >预览</el-button>
           <el-button
-            @click.native.prevent="deleteRow(scope.$index, tableData)"
             type="text"
             size="small"
+            @click.native.prevent="deleteRow(scope.$index, tableData)"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -26,7 +26,7 @@
       </span>
     </el-dialog>
     <el-dialog title="预览" :visible.sync="dialogPreview" width="30%">
-      <img  class="preview-image" :src="currentUrl" alt="">
+      <img class="preview-image" :src="currentUrl" alt="">
       <span slot="footer" class="dialog-footer">
         <el-button @click="closePreviewDialog">取 消</el-button>
       </span>

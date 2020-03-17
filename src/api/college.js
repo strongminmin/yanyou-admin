@@ -26,7 +26,14 @@ export function updateCollege(data) {
 export function deleteCollege(data) {
   return request({
     url: '/api/yanyou/college/delete-college',
-    method: 'post',
+    method: 'get',
+    params: data
+  })
+}
+export function getCollegeDetails(data) {
+  return request({
+    url: '/api/yanyou/college/college-details',
+    method: 'get',
     params: data
   })
 }
