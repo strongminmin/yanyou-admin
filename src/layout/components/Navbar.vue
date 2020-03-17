@@ -11,7 +11,7 @@
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/home">
+          <router-link to="/">
             <el-dropdown-item>
               首页
             </el-dropdown-item>

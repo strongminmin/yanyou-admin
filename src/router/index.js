@@ -25,7 +25,7 @@ export const constantRoutes = [
     redirect: '/home',
     children: [{
       path: 'home',
-      name: 'HomeLayout',
+      name: 'Home',
       component: () => import('@/views/Home/index'),
       meta: { title: '首页', icon: 'home' }
     }]
@@ -34,7 +34,6 @@ export const constantRoutes = [
   {
     path: '/banner',
     component: Layout,
-    redirect: '/banner-layout',
     children: [{
       path: 'banner',
       name: 'Banner',
@@ -46,7 +45,7 @@ export const constantRoutes = [
   {
     path: '/advisory',
     component: Layout,
-    redirect: '/advisory-layout',
+    redirect: '/advisory/advisory',
     meta: { title: '每日热点管理', icon: 'advisory' },
     children: [{
       path: 'advisory',
@@ -66,7 +65,7 @@ export const constantRoutes = [
   {
     path: '/meet',
     component: Layout,
-    redirect: '/meet-layout',
+    redirect: '/meet/meet',
     meta: { title: '校研会管理', icon: 'meet' },
     children: [{
       path: 'meet',
@@ -85,7 +84,7 @@ export const constantRoutes = [
   {
     path: '/college',
     component: Layout,
-    redirect: '/college-layout',
+    redirect: '/college/college',
     meta: { title: '院校信息管理', icon: 'college' },
     children: [{
       path: 'college',
@@ -102,7 +101,6 @@ export const constantRoutes = [
   {
     path: '/resources',
     component: Layout,
-    redirect: '/resources-layout',
     children: [{
       path: 'resources',
       name: 'Resources',
@@ -114,7 +112,6 @@ export const constantRoutes = [
   {
     path: '/user',
     component: Layout,
-    redirect: '/user-layout',
     children: [{
       path: 'user',
       name: 'User',
@@ -126,7 +123,6 @@ export const constantRoutes = [
   {
     path: '/talk',
     component: Layout,
-    redirect: '/talk-layout',
     children: [{
       path: 'talk',
       name: 'talk',
